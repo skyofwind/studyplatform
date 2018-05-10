@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.studyplatform.dao.Homework_infoMapper" >
+  <resultMap id="BaseResultMap" type="org.studyplatform.model.Homework_info" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="question" property="question" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="INTEGER" />
+    <result column="mtype" property="mtype" jdbcType="VARCHAR" />
+    <result column="courseid" property="courseid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cid, question, answer, mtype, courseid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from homework_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from homework_info
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCourseidAndType" resultMap="BaseResultMap" parameterType="org.studyplatform.model.Homework_info" >
+    select
+    <include refid="Base_Column_List" />
+    from homework_info
+    where courseid = #{courseid} AND  mtype = #{mtype}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from homework_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.studyplatform.model.Homework_info" >
+    insert into homework_info (id, cid, question,
+    answer, mtype, courseid
+    )
+    values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{question,jdbcType=VARCHAR},
+    #{answer,jdbcType=INTEGER}, #{mtype,jdbcType=VARCHAR}, #{courseid,jdbcType=INTEGER}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="org.studyplatform.model.Homework_info" >
+    insert into homework_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="question != null" >
+        question,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="type != null" >
+        mtype,
+      </if>
+      <if test="courseid != null" >
+        courseid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="question != null" >
+        #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=INTEGER},
+      </if>
+      <if test="mtype != null" >
+        #{mtype,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.studyplatform.model.Homework_info" >
+    update homework_info
+    <set >
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="question != null" >
+        question = #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=INTEGER},
+      </if>
+      <if test="mtype != null" >
+        mtype = #{mtype,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null" >
+        courseid = #{courseid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.studyplatform.model.Homework_info" >
+    update homework_info
+    set cid = #{cid,jdbcType=INTEGER},
+      question = #{question,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=INTEGER},
+      mtype = #{mtype,jdbcType=VARCHAR},
+      courseid = #{courseid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

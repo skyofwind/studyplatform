@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.studyplatform.dao.Course_test_option_reacordMapper" >
+  <resultMap id="BaseResultMap" type="org.studyplatform.model.Course_test_option_reacord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="hid" property="hid" jdbcType="INTEGER" />
+    <result column="optionid" property="optionid" jdbcType="INTEGER" />
+    <result column="sybol" property="sybol" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sid, cid, hid, optionid, sybol
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course_test_option_reacord
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectBySidAndCid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from course_test_option_reacord
+    where sid = #{0,jdbcType=INTEGER} AND cid = #{1,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course_test_option_reacord
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.studyplatform.model.Course_test_option_reacord" >
+    insert into course_test_option_reacord (id, sid, cid, 
+      hid, optionid, sybol
+      )
+    values (#{id,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, 
+      #{hid,jdbcType=INTEGER}, #{optionid,jdbcType=INTEGER}, #{sybol,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.studyplatform.model.Course_test_option_reacord" >
+    insert into course_test_option_reacord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="hid != null" >
+        hid,
+      </if>
+      <if test="optionid != null" >
+        optionid,
+      </if>
+      <if test="sybol != null" >
+        sybol,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="hid != null" >
+        #{hid,jdbcType=INTEGER},
+      </if>
+      <if test="optionid != null" >
+        #{optionid,jdbcType=INTEGER},
+      </if>
+      <if test="sybol != null" >
+        #{sybol,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.studyplatform.model.Course_test_option_reacord" >
+    update course_test_option_reacord
+    <set >
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="hid != null" >
+        hid = #{hid,jdbcType=INTEGER},
+      </if>
+      <if test="optionid != null" >
+        optionid = #{optionid,jdbcType=INTEGER},
+      </if>
+      <if test="sybol != null" >
+        sybol = #{sybol,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.studyplatform.model.Course_test_option_reacord" >
+    update course_test_option_reacord
+    set sid = #{sid,jdbcType=INTEGER},
+      cid = #{cid,jdbcType=INTEGER},
+      hid = #{hid,jdbcType=INTEGER},
+      optionid = #{optionid,jdbcType=INTEGER},
+      sybol = #{sybol,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

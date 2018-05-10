@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.studyplatform.dao.Mogemap_user_friendsMapper" >
+  <resultMap id="BaseResultMap" type="org.studyplatform.model.Mogemap_user_friends" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mid" property="mid" jdbcType="VARCHAR" />
+    <result column="fid" property="fid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, mid, fid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mogemap_user_friends
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMidAndFid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mogemap_user_friends
+    where mid = #{0,jdbcType=VARCHAR} AND fid = #{1,jdbcType=VARCHAR}
+  </select>
+  <select id="getFriendsByMid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mogemap_user_friends
+    where mid = #{mid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mogemap_user_friends
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteFriend" parameterType="java.lang.String" >
+    delete from mogemap_user_friends
+    where mid = #{0,jdbcType=VARCHAR} AND fid = #{1,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.studyplatform.model.Mogemap_user_friends" >
+    insert into mogemap_user_friends (id, mid, fid)
+    values (#{id,jdbcType=INTEGER}, #{mid,jdbcType=VARCHAR}, #{fid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.studyplatform.model.Mogemap_user_friends" >
+    insert into mogemap_user_friends
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.studyplatform.model.Mogemap_user_friends" >
+    update mogemap_user_friends
+    <set >
+      <if test="mid != null" >
+        mid = #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.studyplatform.model.Mogemap_user_friends" >
+    update mogemap_user_friends
+    set mid = #{mid,jdbcType=VARCHAR},
+      fid = #{fid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

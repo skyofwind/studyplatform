@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.studyplatform.dao.Mogemap_run_recordMapper" >
+  <resultMap id="BaseResultMap" type="org.studyplatform.model.Mogemap_run_record" >
+    <id column="rid" property="rid" jdbcType="INTEGER" />
+    <result column="runtype" property="runtype" jdbcType="VARCHAR" />
+    <result column="distance" property="distance" jdbcType="DOUBLE" />
+    <result column="runtime" property="runtime" jdbcType="INTEGER" />
+    <result column="calories" property="calories" jdbcType="INTEGER" />
+    <result column="mdate" property="mdate" jdbcType="TIMESTAMP" />
+    <result column="json" property="json" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rid, runtype, distance, runtime, calories, mdate, json, phone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mogemap_run_record
+    where rid = #{rid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPhoneAndDate" resultMap="BaseResultMap" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />
+    from mogemap_run_record
+    where phone = #{phone} AND mdate = #{mdate}
+  </select>
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mogemap_run_record
+    where phone = #{phone,jdbcType=VARCHAR} ORDER BY mdate ASC
+  </select>
+  <select id="selectByDay" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mogemap_run_record
+    where phone = #{phone,jdbcType=VARCHAR} AND DATE_SUB(CURDATE(), INTERVAL 1 DAY)<![CDATA[<=date(mdate)]]> ORDER BY mdate ASC
+  </select>
+  <select id="selectByWeek" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mogemap_run_record
+    where phone = #{phone,jdbcType=VARCHAR} AND DATE_SUB(CURDATE(), INTERVAL 7 DAY)<![CDATA[<=date(mdate)]]> ORDER BY mdate ASC
+  </select>
+  <select id="selectByMonth" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mogemap_run_record
+    where phone = #{phone,jdbcType=VARCHAR} AND DATE_SUB(CURDATE(), INTERVAL 30 DAY)<![CDATA[<=date(mdate)]]> ORDER BY mdate ASC
+  </select>
+  <select id="getSevenRecordByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mogemap_run_record where phone = #{phone,jdbcType=VARCHAR} ORDER BY rid DESC limit ${7}
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mogemap_run_record
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.studyplatform.model.Mogemap_run_record" >
+    insert into mogemap_run_record (rid, runtype, distance,
+      runtime, calories, mdate, json, phone)
+    values (#{rid,jdbcType=INTEGER}, #{runtype,jdbcType=VARCHAR}, #{distance,jdbcType=DOUBLE},
+      #{runtime,jdbcType=INTEGER}, #{calories,jdbcType=INTEGER}, #{mdate,jdbcType=TIMESTAMP},
+      #{json,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.studyplatform.model.Mogemap_run_record" >
+    insert into mogemap_run_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        id,
+      </if>
+      <if test="runtype != null" >
+        runtype,
+      </if>
+      <if test="distance != null" >
+        distance,
+      </if>
+      <if test="runtime != null" >
+        runtime,
+      </if>
+      <if test="calories != null" >
+        calories,
+      </if>
+      <if test="mdate != null" >
+        mdate,
+      </if>
+      <if test="json != null" >
+        json,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="runtype != null" >
+        #{runtype,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        #{distance,jdbcType=DOUBLE},
+      </if>
+      <if test="runtime != null" >
+        #{runtime,jdbcType=INTEGER},
+      </if>
+      <if test="calories != null" >
+        #{calories,jdbcType=INTEGER},
+      </if>
+      <if test="mdate != null" >
+        #{mdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="json != null" >
+        #{json,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.studyplatform.model.Mogemap_run_record" >
+    update mogemap_run_record
+    <set >
+      <if test="runtype != null" >
+        runtype = #{runtype,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        distance = #{distance,jdbcType=DOUBLE},
+      </if>
+      <if test="runtime != null" >
+        runtime = #{runtime,jdbcType=INTEGER},
+      </if>
+      <if test="calories != null" >
+        calories = #{calories,jdbcType=INTEGER},
+      </if>
+      <if test="mdate != null" >
+        mdate = #{mdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="json != null" >
+        json = #{json,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        json = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.studyplatform.model.Mogemap_run_record" >
+    update mogemap_run_record
+    set runtype = #{runtype,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=DOUBLE},
+      runtime = #{runtime,jdbcType=INTEGER},
+      calories = #{calories,jdbcType=INTEGER},
+      mdate = #{mdate,jdbcType=TIMESTAMP},
+      json = #{json,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>
